@@ -1,0 +1,37 @@
+rootProject.name = 'YUMarket'
+
+["comp", "web", "server"].each {
+
+    def compDir = new File(rootDir, it)
+    if(!compDir.exists()){
+        compDir.mkdirs()
+    }
+
+    compDir.eachDir {subDir ->
+
+        def gradleFile = new File(subDir.absolutePath, "build.gradle")
+        if(!gradleFile.exists()){
+            gradleFile.text =
+                    """
+                    dependencies {
+                    }
+                    """.stripIndent(20)
+        }
+
+        [
+                "src/main/java/team/project/yumarket",
+                "src/main/resources",
+                "src/test/java/team/project/yumarket",
+                "src/test/resources"
+        ].each {srcDir->
+            def srcFolder = new File(subDir.absolutePath, srcDir)
+            if(!srcFolder.exists()){
+                srcFolder.mkdirs()
+            }
+        }
+
+        def projectName = ":${it}-${subDir.name}";
+        include projectName
+        project(projectName).projectDir = subDir
+    }
+}

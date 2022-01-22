@@ -1,0 +1,8 @@
+# Project exclude paths
+/.gradle/
+/comp/common-utils/build/
+/comp/common-utils/build/classes/java/main/
+/comp/common-utils/build/classes/java/test/
+/server/api-server/build/
+/server/api-server/build/classes/java/main/
+/server/api-server/build/classes/java/test/
