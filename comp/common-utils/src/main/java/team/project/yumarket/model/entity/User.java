@@ -7,10 +7,12 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import team.project.yumarket.model.entity.base.BaseEntity;
+import team.project.yumarket.model.entity.home.MarketLike;
 import team.project.yumarket.model.enums.Role;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * User에 대한 entity를 정의한 class
@@ -30,7 +32,7 @@ public class User extends BaseEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String account;
+    private String email;
 
     private String password;
 
@@ -38,22 +40,19 @@ public class User extends BaseEntity {
 
     private String nickname;
 
-    private String email;
-
     @Enumerated(EnumType.STRING)
     private Role role; // 사용자의 권한
 
     @JsonProperty("password_updated_at")
     private LocalDateTime passwordUpdatedAt;
 
-    @JsonProperty("last_logined_at")
-    private LocalDateTime lastLoginedAt;
-
-    @JsonProperty("registered_at")
-    private LocalDateTime registeredAt;
+    @JsonProperty("last_login_at")
+    private LocalDateTime lastLoginAt;
 
     @JsonProperty("unregistered_at")
     private String unregisteredAt;
 
-    // TODO to Response DTO
+    // User : MarketLike = 1 : N
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<MarketLike> marketLikeList;
 }
