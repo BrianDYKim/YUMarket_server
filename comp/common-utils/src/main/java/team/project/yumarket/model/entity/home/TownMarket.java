@@ -60,4 +60,9 @@ public class TownMarket extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "townMarket", orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<MarketLike> marketLikeList;
+
+    // TownMarket : MarketReview = 1 : N
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "townMarket", orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<MarketReview> marketReviewList;
 }

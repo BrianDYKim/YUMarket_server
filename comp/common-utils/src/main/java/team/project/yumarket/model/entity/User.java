@@ -1,5 +1,6 @@
 package team.project.yumarket.model.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -8,6 +9,7 @@ import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import team.project.yumarket.model.entity.base.BaseEntity;
 import team.project.yumarket.model.entity.home.MarketLike;
+import team.project.yumarket.model.entity.home.MarketReview;
 import team.project.yumarket.model.enums.Role;
 
 import javax.persistence.*;
@@ -54,5 +56,11 @@ public class User extends BaseEntity {
 
     // User : MarketLike = 1 : N
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<MarketLike> marketLikeList;
+
+    // User : MarketReview = 1 : N
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<MarketReview> marketReviewList;
 }

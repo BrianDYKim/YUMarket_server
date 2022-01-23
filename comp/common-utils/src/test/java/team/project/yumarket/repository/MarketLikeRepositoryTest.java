@@ -85,4 +85,12 @@ class MarketLikeRepositoryTest {
 
     }
 
+    @DisplayName("1. ")
+    @Test
+    void countTest() {
+        int likeQuantity = marketLikeRepository.countAllByTownMarket(townMarket);
+
+        Assertions.assertEquals(likeQuantity, 1);
+    }
+
 }

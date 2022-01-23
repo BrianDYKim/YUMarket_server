@@ -46,7 +46,7 @@ class TownMarketRepositoryTest {
     @DisplayName("read : ")
     @Transactional
     void read() {
-        Optional<TownMarket> targetMarket = townMarketRepository.findById(1L);
+        Optional<TownMarket> targetMarket = townMarketRepository.findById(2L);
 
         // then
         Assertions.assertNotNull(targetMarket);
@@ -56,6 +56,10 @@ class TownMarketRepositoryTest {
 
             market.getHomeItemList().forEach(item -> {
                 Assertions.assertEquals(item.getTownMarket().getId(), market.getId());
+            });
+
+            market.getMarketReviewList().forEach(review -> {
+                System.out.println(review.getContent());
             });
         });
     }

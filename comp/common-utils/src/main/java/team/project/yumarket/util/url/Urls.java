@@ -8,4 +8,6 @@ package team.project.yumarket.util.url;
 public interface Urls {
 
     String TOWN_MARKET = "/api/town-market";
+
+    String MARKET_LIKE = TOWN_MARKET + "/like";
 }

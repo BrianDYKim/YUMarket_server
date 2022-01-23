@@ -9,6 +9,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import team.project.yumarket.model.entity.User;
 import team.project.yumarket.model.enums.Role;
 
+import javax.transaction.Transactional;
 import java.time.LocalDateTime;
 import java.util.Optional;
 
@@ -43,6 +44,7 @@ class UserRepositoryTest {
 
     @Test
     @DisplayName("read : ")
+    @Transactional
     void read() {
         Optional<User> targetUser = userRepository.findById(1L);
 
@@ -50,11 +52,16 @@ class UserRepositoryTest {
         Assertions.assertNotNull(targetUser);
         targetUser.ifPresent(user -> {
             Assertions.assertEquals(user.getId(), 1L);
+
+            user.getMarketLikeList().forEach(like -> {
+                System.out.println(like.getId());
+            });
         });
     }
 
     @Test
     @DisplayName("update : ")
+    @Transactional
     void update() {
         Optional<User> targetUser = userRepository.findById(1L);
 
@@ -64,12 +71,16 @@ class UserRepositoryTest {
 
             // Assertion
             Assertions.assertEquals(savedUser.getNickname(), "근육홍길동");
+
+            user.getMarketReviewList().forEach(review -> {
+                System.out.println(review.getContent());
+            });
         });
     }
 
     @Test
     @DisplayName("delete : ")
     void delete() {
-
+        userRepository.deleteById(1L);
     }
 }
