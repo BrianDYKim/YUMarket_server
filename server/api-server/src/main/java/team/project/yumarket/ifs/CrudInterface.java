@@ -17,13 +17,13 @@ import java.util.List;
  */
 public interface CrudInterface<Req, Res> {
 
-    public ResponseEntity<CommunicationFormat<Res>> create(CommunicationFormat<Req> request);
+    public ResponseEntity<CommunicationFormat> create(CommunicationFormat<Req> request);
 
     public ResponseEntity<CommunicationFormat<Res>> read(Long id);
 
-    public ResponseEntity<CommunicationFormat<Res>> update(CommunicationFormat<Req> request);
+    public ResponseEntity<CommunicationFormat<Res>> update(CommunicationFormat<Req> request, Long id);
 
-    public ResponseEntity<CommunicationFormat<Res>> delete(Long id);
+    public ResponseEntity<CommunicationFormat> delete(Long id);
 
     public ResponseEntity<CommunicationFormat<List<Res>>> search(
             @PageableDefault(sort = "id", size = 15, direction = Sort.Direction.ASC) Pageable pageable

@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import team.project.yumarket.model.entity.home.MarketLike;
 
 /**
  * @author Doyeop Kim

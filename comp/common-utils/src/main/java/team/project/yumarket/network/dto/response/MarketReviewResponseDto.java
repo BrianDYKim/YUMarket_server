@@ -5,29 +5,28 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import team.project.yumarket.model.entity.home.MarketLike;
-
-import java.time.LocalDateTime;
 
 /**
  * @author Doyeop Kim
  * @version 0.0
- * @since 2022/01/22
+ * @since 2022/01/23
  */
+
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MarketLikeResponseDto {
+public class MarketReviewResponseDto {
 
     private Long id;
+
+    private double grade;
+
+    private String content;
 
     @JsonProperty("town_market_id")
     private Long townMarketId;
 
     @JsonProperty("user_id")
     private Long userId;
-
-    @JsonProperty("created_at")
-    private LocalDateTime createdAt;
 }

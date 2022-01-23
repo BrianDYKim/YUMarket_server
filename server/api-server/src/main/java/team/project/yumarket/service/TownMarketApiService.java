@@ -28,7 +28,7 @@ public class TownMarketApiService implements ServiceCrudInterface<TownMarket, To
     private final TownMarketRepository townMarketRepository;
 
     @Override
-    public ResponseEntity<CommunicationFormat<TownMarketResponseDto>> create(CommunicationFormat<TownMarketRequestDto> request) {
+    public ResponseEntity<CommunicationFormat> create(CommunicationFormat<TownMarketRequestDto> request) {
         return null;
     }
 
@@ -48,12 +48,12 @@ public class TownMarketApiService implements ServiceCrudInterface<TownMarket, To
     }
 
     @Override
-    public ResponseEntity<CommunicationFormat<TownMarketResponseDto>> update(CommunicationFormat<TownMarketRequestDto> request) {
+    public ResponseEntity<CommunicationFormat<TownMarketResponseDto>> update(CommunicationFormat<TownMarketRequestDto> request, Long id) {
         return null;
     }
 
     @Override
-    public ResponseEntity<CommunicationFormat<TownMarketResponseDto>> delete(Long id) {
+    public ResponseEntity<CommunicationFormat> delete(Long id) {
         return null;
     }
 
