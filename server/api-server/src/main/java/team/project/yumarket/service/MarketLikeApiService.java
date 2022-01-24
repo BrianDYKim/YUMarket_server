@@ -5,10 +5,12 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import team.project.yumarket.ifs.ServiceCrudInterface;
 import team.project.yumarket.model.entity.home.MarketLike;
 import team.project.yumarket.network.dto.request.MarketLikeRequestDto;
 import team.project.yumarket.network.dto.response.MarketLikeResponseDto;
+import team.project.yumarket.network.exception.EntityNotFoundException;
 import team.project.yumarket.network.formats.CommunicationFormat;
 import team.project.yumarket.repository.MarketLikeRepository;
 import team.project.yumarket.repository.TownMarketRepository;
@@ -35,13 +37,22 @@ public class MarketLikeApiService implements ServiceCrudInterface<MarketLike, Ma
 
     @Override
     public ResponseEntity<CommunicationFormat> create(CommunicationFormat<MarketLikeRequestDto> request) {
+
+        System.out.println(request);
+        System.out.println(request.getData());
+
         MarketLikeRequestDto requestBody = request.getData();
         MarketLike marketLike = requestToEntity(requestBody);
 
-        MarketLike newMarketLike = marketLikeRepository.save(marketLike);
+        // 예외 검출
+        if (townMarketRepository.existsById(requestBody.getTownMarketId()) && userRepository.existsById(requestBody.getUserId()))
+            marketLikeRepository.save(marketLike);
+        else
+            throw new EntityNotFoundException("Entity is not found");
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(CommunicationFormat.OK(REQUEST_URL));
+                .body(CommunicationFormat.OK(REQUEST_URL)
+                );
     }
 
     @Override
@@ -51,16 +62,13 @@ public class MarketLikeApiService implements ServiceCrudInterface<MarketLike, Ma
         return targetLike.map(marketLike ->
                 ResponseEntity.status(HttpStatus.OK)
                         .body(response(REQUEST_URL + "/" + id, marketLike))
-        ).orElseGet(() -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(CommunicationFormat.ERROR(REQUEST_URL + "/" + id, "존재하지 않는 찜 정보입니다"))
+        ).orElseThrow(() -> new EntityNotFoundException("Entity is not found")
         );
     }
 
     @Override
-    public ResponseEntity<CommunicationFormat<MarketLikeResponseDto>> update(CommunicationFormat<MarketLikeRequestDto> request, Long id) {
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED)
-                .body(CommunicationFormat.ERROR(REQUEST_URL + "/" + id, "찜에 대한 update 기능은 제공되지 않습니다.")
-                );
+    public ResponseEntity<CommunicationFormat<MarketLikeResponseDto>> update(CommunicationFormat<MarketLikeRequestDto> request, Long id) throws HttpRequestMethodNotSupportedException {
+        throw new HttpRequestMethodNotSupportedException("Access is denied");
     }
 
     @Override
@@ -71,16 +79,13 @@ public class MarketLikeApiService implements ServiceCrudInterface<MarketLike, Ma
                     return ResponseEntity.status(HttpStatus.OK)
                             .body(CommunicationFormat.OK(REQUEST_URL + "/" + id));
                 }
-        ).orElseGet(() -> ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
-                .body(CommunicationFormat.ERROR(REQUEST_URL + "/" + id, "존재하지 않는 찜 정보입니다."))
+        ).orElseThrow(() -> new EntityNotFoundException("Entity is not found")
         );
     }
 
     @Override
-    public ResponseEntity<CommunicationFormat<List<MarketLikeResponseDto>>> search(Pageable pageable) {
-        return ResponseEntity.status(HttpStatus.NOT_IMPLEMENTED)
-                .body(CommunicationFormat.ERROR(REQUEST_URL, "찜에 대한 paging 기능은 제공하지 않습니다.")
-                );
+    public ResponseEntity<CommunicationFormat<List<MarketLikeResponseDto>>> search(Pageable pageable) throws HttpRequestMethodNotSupportedException {
+        throw new HttpRequestMethodNotSupportedException("Access is denied");
     }
 
     @Override
@@ -98,7 +103,8 @@ public class MarketLikeApiService implements ServiceCrudInterface<MarketLike, Ma
                 .build();
     }
 
-    private MarketLike requestToEntity(MarketLikeRequestDto request) {
+    @Override
+    public MarketLike requestToEntity(MarketLikeRequestDto request) {
         return MarketLike.builder()
                 .user(userRepository.getById(request.getUserId()))
                 .townMarket(townMarketRepository.getById(request.getTownMarketId()))

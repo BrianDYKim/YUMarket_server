@@ -1,5 +1,6 @@
 package team.project.yumarket.controller;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gson.Gson;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -12,11 +13,11 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
+import team.project.yumarket.handler.BaseBadResponseHandler;
 import team.project.yumarket.model.entity.User;
 import team.project.yumarket.model.entity.home.MarketLike;
 import team.project.yumarket.model.entity.home.TownMarket;
 import team.project.yumarket.model.enums.Role;
-import team.project.yumarket.network.formats.CommunicationFormat;
 import team.project.yumarket.repository.MarketLikeRepository;
 import team.project.yumarket.repository.TownMarketRepository;
 import team.project.yumarket.repository.UserRepository;
@@ -30,6 +31,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @ExtendWith(MockitoExtension.class)
 class MarketLikeApiControllerTest {
+
+    @Mock
+    private BaseBadResponseHandler baseBadResponseHandler;
 
     @InjectMocks
     private MarketLikeApiController marketLikeApiController;
@@ -51,30 +55,74 @@ class MarketLikeApiControllerTest {
     @BeforeEach
     public void prepare() {
         marketLikeApiController.baseService = marketLikeApiService;
-        mockMvc = MockMvcBuilders.standaloneSetup(marketLikeApiController).build();
+        mockMvc = MockMvcBuilders.standaloneSetup(marketLikeApiController)
+                .setControllerAdvice(baseBadResponseHandler)
+                .build();
     }
 
     @Test
-    @DisplayName("read : ")
-    void read() throws Exception {
+    @DisplayName("read : read success test")
+    void read1() throws Exception {
         // given
-        doReturn(createTownMarket(1L)).when(townMarketRepository).getById(1L);
-        doReturn(createUser(1L)).when(userRepository).getById(1L);
         doReturn(Optional.of(createMarketLike(1L))).when(marketLikeRepository).findById(1L);
 
         // when
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/town-market/like/1")
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/town-market-like/1")
                 ).andExpect(status().isOk())
                 .andReturn();
 
         System.out.println(mvcResult.getResponse().getContentAsString());
     }
 
+    @Test
+    @DisplayName("read : read fail test")
+    void read2() throws Exception {
+        // given
+        doReturn(Optional.empty()).when(marketLikeRepository).findById(1L);
+
+        // when
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/town-market-like/1")
+        ).andExpect(status().isOk()
+        ).andReturn();
+
+        System.out.println(mvcResult.getResponse().getContentAsString());
+    }
+
+    @Test
+    @DisplayName("delete : delete success test")
+    void delete1() throws Exception {
+        // given
+        doReturn(Optional.of(createMarketLike(1L))).when(marketLikeRepository).findById(1L);
+
+        // when
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete("/api/town-market-like/1")
+        ).andExpect(status().isOk()
+        ).andReturn();
+
+        System.out.println(mvcResult.getResponse().getContentAsString());
+    }
+
+    @Test
+    @DisplayName("delete : delete fail test")
+    void delete2() throws Exception {
+        // given
+        doReturn(Optional.empty()).when(marketLikeRepository).findById(1L);
+
+        // when
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete("/api/town-market-like/1")
+        ).andExpect(status().isOk()
+        ).andReturn();
+
+        System.out.println(mvcResult.getResponse().getContentAsString());
+    }
+
+
+
     private MarketLike createMarketLike(Long id) {
         return MarketLike.builder()
                 .id(id)
-                .townMarket(townMarketRepository.getById(1L))
-                .user(userRepository.getById(1L))
+                .townMarket(createTownMarket(1L))
+                .user(createUser(1L))
                 .build();
     }
 

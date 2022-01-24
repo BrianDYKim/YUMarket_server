@@ -5,11 +5,16 @@ import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import team.project.yumarket.util.codes.ErrorCode;
 
+import javax.validation.ConstraintViolationException;
+import javax.validation.Path;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
+import java.util.stream.StreamSupport;
 
 /**
  * @author Doyeop Kim
@@ -57,6 +62,28 @@ public class ErrorResponseFormat {
     // bindingResult를 파라미터로 보내서 에러를 처리하는 메소드
     public static ErrorResponseFormat of(ErrorCode code, BindingResult bindingResult) {
         return new ErrorResponseFormat(code, FieldError.of(bindingResult));
+    }
+
+    // ConstraintViolationException에 대해서 에러를 처리하는 메소드
+    public static ErrorResponseFormat of(ConstraintViolationException e) {
+        List<FieldError> errorList = e.getConstraintViolations().stream().map(error -> {
+
+            String field = error.getPropertyPath().toString();
+            String message = error.getMessage();
+            String invalidValue = error.getInvalidValue().toString();
+
+            return FieldError.of(field, invalidValue, message).get(0);
+        }).collect(Collectors.toList());
+
+        return new ErrorResponseFormat(ErrorCode.INVALID_INPUT_VALUE, errorList);
+    }
+
+    // MethodArgumentTypeMisMatchException에 대해서 에러를 처리하는 메소드
+    public static ErrorResponseFormat of(MethodArgumentTypeMismatchException e) {
+        String value = e.getValue() == null? "" : e.getValue().toString();
+        List<FieldError> errorList = FieldError.of(e.getName(), value, e.getErrorCode());
+
+        return new ErrorResponseFormat(ErrorCode.INVALID_INPUT_VALUE, errorList);
     }
 
     @Getter

@@ -14,9 +14,12 @@ import org.springframework.http.HttpStatus;
 @Getter
 @AllArgsConstructor
 public enum ErrorCode {
+    // Common(40x)
+    INVALID_INPUT_VALUE(400, "C001", "Invalid input value"),
+    ACCESS_DENIED(400, "C002", "Access is denied"),
 
-    // Common
-    INVALID_INPUT_VALUE(400, "C001", "Invalid input value");
+    // Common(50x)
+    ENTITY_NOT_FOUND(500, "C003", "Entity is not found");
 
     private int status;
 

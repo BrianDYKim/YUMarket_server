@@ -78,4 +78,9 @@ public class TownMarketApiService implements ServiceCrudInterface<TownMarket, To
                 .marketImageUrl(market.getMarketImageUrl())
                 .build();
     }
+
+    @Override
+    public TownMarket requestToEntity(TownMarketRequestDto request) {
+        return null;
+    }
 }

@@ -4,6 +4,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import team.project.yumarket.network.formats.CommunicationFormat;
 
 import java.util.List;
@@ -21,11 +22,11 @@ public interface CrudInterface<Req, Res> {
 
     public ResponseEntity<CommunicationFormat<Res>> read(Long id);
 
-    public ResponseEntity<CommunicationFormat<Res>> update(CommunicationFormat<Req> request, Long id);
+    public ResponseEntity<CommunicationFormat<Res>> update(CommunicationFormat<Req> request, Long id) throws HttpRequestMethodNotSupportedException;
 
     public ResponseEntity<CommunicationFormat> delete(Long id);
 
     public ResponseEntity<CommunicationFormat<List<Res>>> search(
             @PageableDefault(sort = "id", size = 15, direction = Sort.Direction.ASC) Pageable pageable
-    );
+    ) throws HttpRequestMethodNotSupportedException;
 }

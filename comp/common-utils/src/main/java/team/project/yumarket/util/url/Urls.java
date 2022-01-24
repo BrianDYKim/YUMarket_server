@@ -12,7 +12,7 @@ public interface Urls {
 
     String TOWN_MARKET = "/api/town-market"; // /api/town-market
 
-    String MARKET_LIKE = TOWN_MARKET + "/like"; // /api/town=market/like
+    String MARKET_LIKE = TOWN_MARKET + "-like"; // /api/town=market/like
 
-    String MARKET_REVIEW = TOWN_MARKET + "/review"; // /api/town-market/review
+    String MARKET_REVIEW = TOWN_MARKET + "-review"; // /api/town-market/review
 }

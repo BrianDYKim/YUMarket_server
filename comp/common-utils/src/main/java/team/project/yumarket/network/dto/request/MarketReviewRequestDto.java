@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 /**
  * @author Doyeop Kim
  * @version 0.0
- * @since 2022/01/23
+ * @since 2022/01/25
  */
 
 @Data

@@ -8,8 +8,6 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import team.project.yumarket.model.entity.User;
 import team.project.yumarket.model.entity.home.MarketReview;
@@ -24,7 +22,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
 class MarketReviewApiControllerTest {
@@ -48,83 +45,24 @@ class MarketReviewApiControllerTest {
 
     @BeforeEach
     public void prepare() {
-        marketReviewApiController.baseService = marketReviewApiService; // post construct에 대한 처리
+        marketReviewApiController.baseService = marketReviewApiService;
         mockMvc = MockMvcBuilders.standaloneSetup(marketReviewApiController).build();
     }
 
-    @Test
-    @DisplayName("create : ")
-    void create() {
-
-    }
-
-    @Test
-    @DisplayName("read : MarketReview read success test")
-    void read1() throws Exception {
-        // given
-        doReturn(Optional.of(createReview(1L))).when(marketReviewRepository).findById(1L);
-
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/town-market/review/1")
-        ).andExpect(status().isOk()
-        ).andReturn();
-
-        System.out.println(mvcResult.getResponse().getContentAsString());
-    }
-
-    @Test
-    @DisplayName("read : MarketRwview read fail test")
-    void read2() throws Exception {
-        // given
-        doReturn(Optional.empty()).when(marketReviewRepository).findById(1L);
-
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/town-market/review/1")
-        ).andExpect(status().isInternalServerError()
-        ).andReturn();
-
-        System.out.println(mvcResult.getResponse().getContentAsString());
-    }
-
-    @Test
-    @DisplayName("update : ")
-    void update() {
-
-    }
-
-    @Test
-    @DisplayName("delete : delete success test")
-    void delete1() throws Exception {
-        // given
-        doReturn(Optional.of(createReview(1L))).when(marketReviewRepository).findById(1L);
-
-        // when and then
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete("/api/town-market/review/1")
-                ).andExpect(status().isOk())
-                .andReturn();
-
-        System.out.println(mvcResult.getResponse().getContentAsString());
-    }
-
-    @Test
-    @DisplayName("delete : delete fail test")
-    void delete2() throws Exception {
-        // given
-        doReturn(Optional.empty()).when(marketReviewRepository).findById(1L);
-
-        // when and then
-        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete("/api/town-market/review/1")
-        ).andExpect(status().isInternalServerError()
-        ).andReturn();
-
-        System.out.println(mvcResult.getResponse().getContentAsString());
-    }
-
-    private MarketReview createReview(Long id) {
+    private MarketReview createReview(Long id, double grade, Long userId, Long townMarketId) {
         return MarketReview.builder()
                 .id(id)
-                .townMarket(createMarket(1L))
-                .user(createUser(1L))
-                .grade(1.5)
-                .content("국이 짜다")
+                .grade(grade)
+                .content("맛이 없어요")
+                .user(userRepository.getById(userId))
+                .townMarket(townMarketRepository.getById(townMarketId))
+                .build();
+    }
+
+    private TownMarket createMarket(Long id) {
+        return TownMarket.builder()
+                .id(id)
+                .name("영남상회")
                 .build();
     }
 
@@ -136,10 +74,4 @@ class MarketReviewApiControllerTest {
                 .build();
     }
 
-    private TownMarket createMarket(Long id) {
-        return TownMarket.builder()
-                .id(id)
-                .name("영남상회")
-                .build();
-    }
 }

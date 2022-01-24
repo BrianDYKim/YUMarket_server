@@ -35,7 +35,7 @@ class MarketReviewRepositoryTest {
 
     @BeforeEach
     public void prepare() {
-        user = userRepository.getById(1L);
+        user = userRepository.getById(2L);
         townMarket = townMarketRepository.getById(2L);
     }
 

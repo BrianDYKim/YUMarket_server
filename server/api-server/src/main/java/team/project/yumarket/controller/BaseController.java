@@ -1,7 +1,9 @@
 package team.project.yumarket.controller;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.annotation.*;
 import team.project.yumarket.ifs.CrudInterface;
 import team.project.yumarket.network.formats.CommunicationFormat;
@@ -32,7 +34,8 @@ public class BaseController<Req, Res> implements CrudInterface<Req, Res> {
 
     @Override
     @PutMapping("/{id}")
-    public ResponseEntity<CommunicationFormat<Res>> update(@Valid @RequestBody CommunicationFormat<Req> request, @PathVariable Long id) {
+    public ResponseEntity<CommunicationFormat<Res>> update(@Valid @RequestBody CommunicationFormat<Req> request, @PathVariable Long id)
+            throws HttpRequestMethodNotSupportedException {
         return baseService.update(request, id);
     }
 
@@ -44,7 +47,7 @@ public class BaseController<Req, Res> implements CrudInterface<Req, Res> {
 
     @Override
     @GetMapping("/list")
-    public ResponseEntity<CommunicationFormat<List<Res>>> search(Pageable pageable) {
+    public ResponseEntity<CommunicationFormat<List<Res>>> search(Pageable pageable) throws HttpRequestMethodNotSupportedException {
         return baseService.search(pageable);
     }
 }

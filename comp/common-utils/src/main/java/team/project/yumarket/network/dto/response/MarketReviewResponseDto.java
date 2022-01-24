@@ -6,10 +6,12 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.time.LocalDateTime;
+
 /**
  * @author Doyeop Kim
  * @version 0.0
- * @since 2022/01/23
+ * @since 2022/01/25
  */
 
 @Data
@@ -23,6 +25,12 @@ public class MarketReviewResponseDto {
     private double grade;
 
     private String content;
+
+    @JsonProperty("created_at")
+    private LocalDateTime createdAt;
+
+    @JsonProperty("updated_at")
+    private LocalDateTime updatedAt;
 
     @JsonProperty("town_market_id")
     private Long townMarketId;
