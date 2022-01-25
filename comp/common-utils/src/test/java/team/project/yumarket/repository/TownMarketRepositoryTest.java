@@ -23,7 +23,7 @@ class TownMarketRepositoryTest {
 
     private TownMarket createMarket() {
         return TownMarket.builder()
-                .name("영남상회")
+                .name("엄마밥상")
                 .isOpen(true)
                 .latitude(128.0)
                 .longitude(37.5)

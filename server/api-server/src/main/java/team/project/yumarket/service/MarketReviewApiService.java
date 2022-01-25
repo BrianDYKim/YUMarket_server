@@ -18,6 +18,7 @@ import team.project.yumarket.repository.UserRepository;
 import team.project.yumarket.util.url.Urls;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Doyeop Kim
@@ -40,7 +41,7 @@ public class MarketReviewApiService implements ServiceCrudInterface<MarketReview
         MarketReview marketReview = requestToEntity(requestBody);
 
         // Entity not found에 대한 예외 던지기
-        if(townMarketRepository.existsById(requestBody.getTownMarketId()) && userRepository.existsById(requestBody.getUserId()))
+        if (townMarketRepository.existsById(requestBody.getTownMarketId()) && userRepository.existsById(requestBody.getUserId()))
             marketReviewRepository.save(marketReview);
         else
             throw new EntityNotFoundException("Entity is not found");
@@ -52,22 +53,61 @@ public class MarketReviewApiService implements ServiceCrudInterface<MarketReview
 
     @Override
     public ResponseEntity<CommunicationFormat<MarketReviewResponseDto>> read(Long id) {
-        return null;
+        return marketReviewRepository.findById(id).map(marketReview ->
+                ResponseEntity.status(HttpStatus.OK)
+                        .body(response(REQUEST_URL + "/" + id, marketReview))
+        ).orElseThrow(() -> new EntityNotFoundException("Entity is not found")
+        );
     }
 
     @Override
     public ResponseEntity<CommunicationFormat<MarketReviewResponseDto>> update(CommunicationFormat<MarketReviewRequestDto> request, Long id) throws HttpRequestMethodNotSupportedException {
-        return null;
+        MarketReviewRequestDto requestBody = request.getData();
+
+        return marketReviewRepository.findById(id).map(marketReview -> {
+                    marketReview.setGrade(requestBody.getGrade())
+                            .setContent(requestBody.getContent());
+
+                    return marketReview;
+                }
+        ).map(marketReviewRepository::save
+        ).map(marketReview -> ResponseEntity.status(HttpStatus.OK)
+                .body(response(REQUEST_URL + "/" + id, marketReview))
+        ).orElseThrow(() -> new EntityNotFoundException("Entity is not found")
+        );
     }
 
     @Override
     public ResponseEntity<CommunicationFormat> delete(Long id) {
-        return null;
+        return marketReviewRepository.findById(id).map(marketReview -> {
+                    marketReviewRepository.delete(marketReview);
+
+                    return ResponseEntity.status(HttpStatus.OK)
+                            .body(CommunicationFormat.OK(REQUEST_URL + "/" + id));
+                }
+        ).orElseThrow(() -> new EntityNotFoundException("Entity is not found")
+        );
     }
 
     @Override
     public ResponseEntity<CommunicationFormat<List<MarketReviewResponseDto>>> search(Pageable pageable) throws HttpRequestMethodNotSupportedException {
-        return null;
+        // 지원하지 않음
+        throw new HttpRequestMethodNotSupportedException("Access is denied(this method is not supported)");
+    }
+
+    public ResponseEntity<CommunicationFormat<List<MarketReviewResponseDto>>> readReviewsByMarketId(Long townMarketId) {
+        // 예외 검출
+        if (!townMarketRepository.existsById(townMarketId))
+            throw new EntityNotFoundException("TownMarket does not exist!");
+
+        List<MarketReview> reviews = marketReviewRepository.findAllByTownMarket(townMarketRepository.getById(townMarketId));
+
+        List<MarketReviewResponseDto> responseList = reviews.stream().map(marketReview -> responseData(marketReview)
+        ).collect(Collectors.toList());
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(CommunicationFormat.OK(REQUEST_URL + "/lists?market-id=" + townMarketId, responseList)
+                );
     }
 
     @Override
