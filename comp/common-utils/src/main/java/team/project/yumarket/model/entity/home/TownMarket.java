@@ -10,7 +10,7 @@ import lombok.experimental.Accessors;
 import team.project.yumarket.model.entity.base.BaseEntity;
 
 import javax.persistence.*;
-import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -37,10 +37,10 @@ public class TownMarket extends BaseEntity {
     private boolean isOpen;
 
     @JsonProperty("open_time")
-    private LocalDateTime openTime;
+    private LocalTime openTime;
 
     @JsonProperty("close_time")
-    private LocalDateTime closeTime;
+    private LocalTime closeTime;
 
     private String address;
 

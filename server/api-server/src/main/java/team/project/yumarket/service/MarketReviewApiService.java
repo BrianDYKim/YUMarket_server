@@ -65,8 +65,8 @@ public class MarketReviewApiService implements ServiceCrudInterface<MarketReview
         MarketReviewRequestDto requestBody = request.getData();
 
         return marketReviewRepository.findById(id).map(marketReview -> {
-                    marketReview.setGrade(requestBody.getGrade())
-                            .setContent(requestBody.getContent());
+                    marketReview.setGrade(requestBody.getGrade() == null? marketReview.getGrade() : requestBody.getGrade())
+                            .setContent(requestBody.getContent() == null? marketReview.getContent() : requestBody.getContent());
 
                     return marketReview;
                 }

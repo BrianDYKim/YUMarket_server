@@ -18,7 +18,7 @@ import lombok.NoArgsConstructor;
 @Builder
 public class MarketReviewRequestDto {
 
-    private double grade;
+    private Double grade;
 
     private String content;
 

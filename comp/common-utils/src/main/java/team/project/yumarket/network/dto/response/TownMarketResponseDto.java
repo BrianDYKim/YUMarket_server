@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -29,10 +30,10 @@ public class TownMarketResponseDto {
     private boolean isOpen;
 
     @JsonProperty("open_time")
-    private LocalDateTime openTime;
+    private LocalTime openTime;
 
     @JsonProperty("close_time")
-    private LocalDateTime closeTime;
+    private LocalTime closeTime;
 
     private String address;
 
@@ -43,6 +44,12 @@ public class TownMarketResponseDto {
     @JsonProperty("market_image_url")
     private String marketImageUrl;
 
-    @JsonProperty("items")
-    private List<HomeItemResponseDto> homeItemResponseDtoList;
+    @JsonProperty("item_quantity")
+    private int itemQuantity;
+
+    @JsonProperty("like_quantity")
+    private int likeQuantity;
+
+    @JsonProperty("review_quantity")
+    private int reviewQuantity;
 }

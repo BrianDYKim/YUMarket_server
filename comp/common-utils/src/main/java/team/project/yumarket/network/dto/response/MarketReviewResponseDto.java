@@ -22,7 +22,7 @@ public class MarketReviewResponseDto {
 
     private Long id;
 
-    private double grade;
+    private Double grade;
 
     private String content;
 
