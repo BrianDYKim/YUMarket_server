@@ -128,6 +128,12 @@ public class MarketReviewApiService implements ServiceCrudInterface<MarketReview
                 .build();
     }
 
+    // marketReviewList를 dto로 가공하여리턴을 수행하는 메소드
+    public List<MarketReviewResponseDto> responseDataList(List<MarketReview> marketReviewList) {
+        return marketReviewList.stream().map(marketReview -> responseData(marketReview)
+        ).collect(Collectors.toList());
+    }
+
     @Override
     public MarketReview requestToEntity(MarketReviewRequestDto request) {
         return MarketReview.builder()

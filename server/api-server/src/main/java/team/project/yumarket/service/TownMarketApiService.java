@@ -8,17 +8,16 @@ import org.springframework.stereotype.Service;
 import team.project.yumarket.ifs.ServiceCrudInterface;
 import team.project.yumarket.model.entity.home.TownMarket;
 import team.project.yumarket.network.dto.request.TownMarketRequestDto;
-import team.project.yumarket.network.dto.response.TownMarketResponseDto;
+import team.project.yumarket.network.dto.response.HomeItemResponseDto;
+import team.project.yumarket.network.dto.response.MarketReviewResponseDto;
+import team.project.yumarket.network.dto.response.townMarket.TownMarketDetailResponseDto;
+import team.project.yumarket.network.dto.response.townMarket.TownMarketResponseDto;
 import team.project.yumarket.network.exception.EntityNotFoundException;
 import team.project.yumarket.network.formats.CommunicationFormat;
-import team.project.yumarket.repository.HomeItemRepository;
-import team.project.yumarket.repository.MarketLikeRepository;
-import team.project.yumarket.repository.MarketReviewRepository;
 import team.project.yumarket.repository.TownMarketRepository;
 import team.project.yumarket.util.url.Urls;
 
 import java.util.List;
-import java.util.Optional;
 
 /**
  * @author Doyeop Kim
@@ -32,10 +31,7 @@ public class TownMarketApiService implements ServiceCrudInterface<TownMarket, To
     private final String REQUEST_URL = Urls.BASE_URL + Urls.TOWN_MARKET;
 
     // Injections
-    private final TownMarketRepository townMarketRepository;
-    private final HomeItemRepository homeItemRepository;
-    private final MarketLikeRepository marketLikeRepository;
-    private final MarketReviewRepository marketReviewRepository;
+    public final TownMarketRepository townMarketRepository;
 
     @Override
     public ResponseEntity<CommunicationFormat> create(CommunicationFormat<TownMarketRequestDto> request) {
@@ -60,19 +56,35 @@ public class TownMarketApiService implements ServiceCrudInterface<TownMarket, To
         );
     }
 
+    // detail read
+    public ResponseEntity<CommunicationFormat<TownMarketDetailResponseDto>> detailRead(
+            Long id,
+            List<MarketReviewResponseDto> marketReviewResponseDtoList,
+            List<HomeItemResponseDto> homeItemResponseDtoList
+    ) throws EntityNotFoundException {
+
+        return townMarketRepository.findById(id).map(market ->
+                ResponseEntity.status(HttpStatus.OK)
+                        .body(responseDetail(REQUEST_URL + "/" + id, market,
+                                marketReviewResponseDtoList, homeItemResponseDtoList)
+                        )
+        ).orElseThrow(() -> new EntityNotFoundException("Entity is not found")
+        );
+    }
+
     @Override
     public ResponseEntity<CommunicationFormat<TownMarketResponseDto>> update(CommunicationFormat<TownMarketRequestDto> request, Long id) {
         TownMarketRequestDto requestBody = request.getData();
 
         return townMarketRepository.findById(id).map(townMarket ->
-            townMarket.setName(requestBody.getName() == null? townMarket.getName() : requestBody.getName())
-                    .setOpen(requestBody.getIsOpen() == null? townMarket.isOpen() : requestBody.getIsOpen())
-                    .setOpenTime(requestBody.getOpenTime() == null? townMarket.getOpenTime() : requestBody.getOpenTime())
-                    .setCloseTime(requestBody.getCloseTime() == null? townMarket.getCloseTime() : requestBody.getCloseTime())
-                    .setAddress(requestBody.getAddress() == null? townMarket.getAddress() : requestBody.getAddress())
-                    .setLatitude(requestBody.getLatitude() == null? townMarket.getLatitude() : requestBody.getLatitude())
-                    .setLongitude(requestBody.getLongitude() == null? townMarket.getLongitude() : requestBody.getLongitude())
-                    .setMarketImageUrl(requestBody.getMarketImageUrl() == null? townMarket.getMarketImageUrl() : requestBody.getMarketImageUrl())
+                townMarket.setName(requestBody.getName() == null ? townMarket.getName() : requestBody.getName())
+                        .setOpen(requestBody.getIsOpen() == null ? townMarket.isOpen() : requestBody.getIsOpen())
+                        .setOpenTime(requestBody.getOpenTime() == null ? townMarket.getOpenTime() : requestBody.getOpenTime())
+                        .setCloseTime(requestBody.getCloseTime() == null ? townMarket.getCloseTime() : requestBody.getCloseTime())
+                        .setAddress(requestBody.getAddress() == null ? townMarket.getAddress() : requestBody.getAddress())
+                        .setLatitude(requestBody.getLatitude() == null ? townMarket.getLatitude() : requestBody.getLatitude())
+                        .setLongitude(requestBody.getLongitude() == null ? townMarket.getLongitude() : requestBody.getLongitude())
+                        .setMarketImageUrl(requestBody.getMarketImageUrl() == null ? townMarket.getMarketImageUrl() : requestBody.getMarketImageUrl())
         ).map(townMarket -> townMarketRepository.save(townMarket)
         ).map(townMarket -> ResponseEntity.status(HttpStatus.OK)
                 .body(response(REQUEST_URL + "/" + id, townMarket))
@@ -82,7 +94,15 @@ public class TownMarketApiService implements ServiceCrudInterface<TownMarket, To
 
     @Override
     public ResponseEntity<CommunicationFormat> delete(Long id) {
-        return null;
+        return townMarketRepository.findById(id).map(townMarket -> {
+                    townMarketRepository.delete(townMarket);
+
+                    return townMarket;
+                }
+        ).map(townMarket -> ResponseEntity.status(HttpStatus.OK)
+                .body(CommunicationFormat.OK(REQUEST_URL + "/" + id))
+        ).orElseThrow(() -> new EntityNotFoundException("Entity is not found")
+        );
     }
 
     @Override
@@ -93,6 +113,15 @@ public class TownMarketApiService implements ServiceCrudInterface<TownMarket, To
     @Override
     public CommunicationFormat<TownMarketResponseDto> response(String url, TownMarket market) {
         return CommunicationFormat.OK(url, responseData(market));
+    }
+
+    // detail dto에 대한 response method
+    public CommunicationFormat<TownMarketDetailResponseDto> responseDetail(
+            String url, TownMarket market,
+            List<MarketReviewResponseDto> marketReviewResponseDtoList,
+            List<HomeItemResponseDto> homeItemResponseDtoList
+    ) {
+        return CommunicationFormat.OK(url, responseDetailData(market, marketReviewResponseDtoList, homeItemResponseDtoList));
     }
 
     @Override
@@ -110,6 +139,30 @@ public class TownMarketApiService implements ServiceCrudInterface<TownMarket, To
                 .itemQuantity(market.getHomeItemList().size())
                 .likeQuantity(market.getMarketLikeList().size())
                 .reviewQuantity(market.getMarketReviewList().size())
+                .build();
+    }
+
+    // detail dto에 대한 responseData method
+    public TownMarketDetailResponseDto responseDetailData(
+            TownMarket market,
+            List<MarketReviewResponseDto> marketReviewResponseDtoList,
+            List<HomeItemResponseDto> homeItemResponseDtoList
+    ) {
+        return TownMarketDetailResponseDto.builder()
+                .id(market.getId())
+                .name(market.getName())
+                .isOpen(market.isOpen())
+                .openTime(market.getOpenTime())
+                .closeTime(market.getCloseTime())
+                .address(market.getAddress())
+                .latitude(market.getLatitude())
+                .longitude(market.getLongitude())
+                .marketImageUrl(market.getMarketImageUrl())
+                .itemQuantity(market.getHomeItemList().size())
+                .likeQuantity(market.getMarketLikeList().size())
+                .reviewQuantity(market.getMarketReviewList().size())
+                .homeItemResponseDtoList(homeItemResponseDtoList)
+                .marketReviewResponseDtoList(marketReviewResponseDtoList)
                 .build();
     }
 

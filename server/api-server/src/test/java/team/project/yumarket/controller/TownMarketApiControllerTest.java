@@ -19,10 +19,10 @@ import team.project.yumarket.model.entity.home.MarketLike;
 import team.project.yumarket.model.entity.home.MarketReview;
 import team.project.yumarket.model.entity.home.TownMarket;
 import team.project.yumarket.repository.TownMarketRepository;
+import team.project.yumarket.service.HomeItemApiService;
+import team.project.yumarket.service.MarketReviewApiService;
 import team.project.yumarket.service.TownMarketApiService;
 
-import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.util.*;
 import java.util.stream.Collectors;
@@ -36,6 +36,12 @@ class TownMarketApiControllerTest {
 
     @InjectMocks
     private TownMarketApiController townMarketApiController;
+
+    @Mock
+    private MarketReviewApiService marketReviewApiService;
+
+    @Mock
+    private HomeItemApiService homeItemApiService;
 
     @InjectMocks
     private TownMarketApiService townMarketApiService;
@@ -97,15 +103,73 @@ class TownMarketApiControllerTest {
     }
 
     @Test
-    @DisplayName("update : ")
-    void update() {
+    @DisplayName("read : read success test")
+    void read3() throws Exception {
+        // given
+        doReturn(Optional.of(createTownMarket(1L))).when(townMarketRepository).findById(1L);
 
+        // when
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.get("/api/town-market/detail/1")
+        ).andExpect(status().isOk()
+        ).andReturn();
+
+        System.out.println(mvcResult.getResponse().getContentAsString());
     }
 
     @Test
-    @DisplayName("delete : ")
-    void delete() {
+    @DisplayName("read : read fail test(Entity is not found)")
+    void read4() throws Exception {
+        // given
+        doReturn(Optional.empty()).when(townMarketRepository).findById(1L);
 
+        // when
+        mockMvc.perform(MockMvcRequestBuilders.get("/api/town-market/detail/1")
+        ).andExpect(status().isOk()
+        );
+    }
+
+    @Test
+    @DisplayName("update : ")
+    void update() throws Exception {
+        // given
+        ObjectMapper mapper = new ObjectMapper();
+        doReturn(Optional.of(createTownMarket(1L))).when(townMarketRepository).findById(1L);
+        String content = mapper.writeValueAsString(createInputData());
+
+        // when
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.put("/api/town-market/1")
+                .content(content)
+                .contentType(MediaType.APPLICATION_JSON)
+        ).andExpect(status().isOk()
+        ).andReturn();
+
+        System.out.println(mvcResult.getResponse().getContentAsString());
+    }
+
+    @Test
+    @DisplayName("delete : delete success test")
+    void delete1() throws Exception {
+        // given
+        doReturn(Optional.of(createTownMarket(1L))).when(townMarketRepository).findById(1L);
+
+        // when
+        MvcResult mvcResult = mockMvc.perform(MockMvcRequestBuilders.delete("/api/town-market/1")
+        ).andExpect(status().isOk()
+        ).andReturn();
+
+        System.out.println(mvcResult.getResponse().getContentAsString());
+    }
+
+    @Test
+    @DisplayName("delete : delete success test")
+    void delete2() throws Exception {
+        // given
+        doReturn(Optional.empty()).when(townMarketRepository).findById(1L);
+
+        // when
+        mockMvc.perform(MockMvcRequestBuilders.delete("/api/town-market/1")
+        ).andExpect(status().isOk()
+        );
     }
 
     // create test data 생성
