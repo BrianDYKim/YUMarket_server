@@ -1,5 +1,6 @@
 package team.project.yumarket.network.formats;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 @Builder
 public class CommunicationFormat<T> {
 
+    @JsonProperty("transaction_time")
     private LocalDateTime transactionTime;
 
     // 요청한 api의 해당 주소

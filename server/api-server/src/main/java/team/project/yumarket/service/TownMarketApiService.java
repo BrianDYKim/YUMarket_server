@@ -1,6 +1,7 @@
 package team.project.yumarket.service;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -14,10 +15,12 @@ import team.project.yumarket.network.dto.response.townMarket.TownMarketDetailRes
 import team.project.yumarket.network.dto.response.townMarket.TownMarketResponseDto;
 import team.project.yumarket.network.exception.EntityNotFoundException;
 import team.project.yumarket.network.formats.CommunicationFormat;
+import team.project.yumarket.network.formats.Pagination;
 import team.project.yumarket.repository.TownMarketRepository;
 import team.project.yumarket.util.url.Urls;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * @author Doyeop Kim
@@ -107,7 +110,21 @@ public class TownMarketApiService implements ServiceCrudInterface<TownMarket, To
 
     @Override
     public ResponseEntity<CommunicationFormat<List<TownMarketResponseDto>>> search(Pageable pageable) {
-        return null;
+        Page<TownMarket> markets = townMarketRepository.findAll(pageable);
+
+        List<TownMarketResponseDto> marketResponseDtoList = markets.stream().map(townMarket -> responseData(townMarket)
+        ).collect(Collectors.toList());
+
+        Pagination pagination = Pagination.builder()
+                .totalPage(markets.getTotalPages())
+                .totalElements(markets.getTotalElements())
+                .currentPage(markets.getNumber())
+                .currentElements(markets.getNumberOfElements())
+                .build();
+
+        return ResponseEntity.status(HttpStatus.OK)
+                .body(CommunicationFormat.OK(REQUEST_URL + "/list?page=" + markets.getNumber(), marketResponseDtoList, pagination)
+                );
     }
 
     @Override

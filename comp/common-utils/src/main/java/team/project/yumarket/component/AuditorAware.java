@@ -1,6 +1,5 @@
 package team.project.yumarket.component;
 
-import org.springframework.data.domain.AuditorAware;
 import org.springframework.stereotype.Component;
 
 import java.util.Optional;
@@ -12,7 +11,7 @@ import java.util.Optional;
  * @since 2022/01/17
  */
 @Component
-public class LoginUserAuditorAware implements AuditorAware<String> {
+public class AuditorAware implements org.springframework.data.domain.AuditorAware<String> {
 
     @Override
     public Optional<String> getCurrentAuditor() {

@@ -35,13 +35,13 @@ public class HomeItemResponseDto {
     private String name;
 
     @JsonProperty("original_price")
-    private int originalPrice;
+    private Integer originalPrice;
 
     @JsonProperty("sale_price")
-    private int salePrice;
+    private Integer salePrice;
 
     @JsonProperty("stock_quantity")
-    private int stockQuantity;
+    private Integer stockQuantity;
 
     @JsonProperty("created_at")
     private LocalDateTime createdAt;

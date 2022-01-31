@@ -19,7 +19,7 @@ public enum ErrorCode {
     ACCESS_DENIED(400, "C002", "Access is denied"),
 
     // Common(50x)
-    ENTITY_NOT_FOUND(500, "C003", "Entity is not found");
+    ENTITY_NOT_FOUND(500, "C101", "Entity is not found");
 
     private int status;
 
