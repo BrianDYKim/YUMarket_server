@@ -1,6 +1,7 @@
 package team.project.yumarket.model.entity.home;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -12,6 +13,7 @@ import team.project.yumarket.model.enums.home.DetailCategory;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.List;
 
 /**
  * @author Doyeop Kim
@@ -57,4 +59,14 @@ public class HomeItem extends BaseEntity {
     @ManyToOne
     @JsonBackReference
     private TownMarket townMarket;
+
+    // HomeItem : HomeItemLike = 1 : N
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "homeItem", orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<HomeItemLike> homeItemLikeList;
+
+    // HomeItem : HomeItemReview = 1 : N
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "homeItem", orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<HomeItemReview> homeItemReviewList;
 }

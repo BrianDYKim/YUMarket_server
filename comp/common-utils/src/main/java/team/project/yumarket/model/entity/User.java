@@ -8,6 +8,8 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import team.project.yumarket.model.entity.base.BaseEntity;
+import team.project.yumarket.model.entity.home.HomeItemLike;
+import team.project.yumarket.model.entity.home.HomeItemReview;
 import team.project.yumarket.model.entity.home.MarketLike;
 import team.project.yumarket.model.entity.home.MarketReview;
 import team.project.yumarket.model.enums.Role;
@@ -63,4 +65,13 @@ public class User extends BaseEntity {
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
     @JsonManagedReference
     private List<MarketReview> marketReviewList;
+
+    // User : HomeItemLike = 1 : N
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+    @JsonManagedReference
+    private List<HomeItemLike> homeItemLikeList;
+
+    // User : HomeItemReview = 1 : N
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<HomeItemReview> homeItemReviewList;
 }

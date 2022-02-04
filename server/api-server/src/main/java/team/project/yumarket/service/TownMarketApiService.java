@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import team.project.yumarket.ifs.ServiceCrudInterface;
 import team.project.yumarket.model.entity.home.TownMarket;
 import team.project.yumarket.network.dto.request.TownMarketRequestDto;
-import team.project.yumarket.network.dto.response.HomeItemResponseDto;
+import team.project.yumarket.network.dto.response.homeItem.HomeItemResponseDto;
 import team.project.yumarket.network.dto.response.MarketReviewResponseDto;
 import team.project.yumarket.network.dto.response.townMarket.TownMarketDetailResponseDto;
 import team.project.yumarket.network.dto.response.townMarket.TownMarketResponseDto;

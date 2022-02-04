@@ -9,7 +9,7 @@ import org.springframework.web.HttpRequestMethodNotSupportedException;
 import team.project.yumarket.ifs.ServiceCrudInterface;
 import team.project.yumarket.model.entity.home.HomeItem;
 import team.project.yumarket.network.dto.request.HomeItemRequestDto;
-import team.project.yumarket.network.dto.response.HomeItemResponseDto;
+import team.project.yumarket.network.dto.response.homeItem.HomeItemResponseDto;
 import team.project.yumarket.network.exception.EntityNotFoundException;
 import team.project.yumarket.network.formats.CommunicationFormat;
 import team.project.yumarket.repository.HomeItemRepository;
@@ -61,6 +61,8 @@ public class HomeItemApiService implements ServiceCrudInterface<HomeItem, HomeIt
         ).orElseThrow(() -> new EntityNotFoundException("Entity is not found")
         );
     }
+
+    // TODO Home의 아이템에 대한 detail read 기능 구현
 
     // 기존의 아이템을 수정하는 메소드
     @Override

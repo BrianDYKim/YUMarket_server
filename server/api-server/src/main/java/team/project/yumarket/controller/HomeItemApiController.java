@@ -4,7 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import team.project.yumarket.network.dto.request.HomeItemRequestDto;
-import team.project.yumarket.network.dto.response.HomeItemResponseDto;
+import team.project.yumarket.network.dto.response.homeItem.HomeItemResponseDto;
 import team.project.yumarket.service.HomeItemApiService;
 import team.project.yumarket.util.url.Urls;
 

@@ -2,12 +2,10 @@ package team.project.yumarket.network.dto.response.townMarket;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-import team.project.yumarket.network.dto.response.HomeItemResponseDto;
-import team.project.yumarket.network.dto.response.MarketLikeResponseDto;
+import team.project.yumarket.network.dto.response.homeItem.HomeItemResponseDto;
 import team.project.yumarket.network.dto.response.MarketReviewResponseDto;
 
 import java.util.List;

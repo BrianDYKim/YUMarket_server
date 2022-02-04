@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import team.project.yumarket.network.dto.request.TownMarketRequestDto;
-import team.project.yumarket.network.dto.response.HomeItemResponseDto;
+import team.project.yumarket.network.dto.response.homeItem.HomeItemResponseDto;
 import team.project.yumarket.network.dto.response.MarketReviewResponseDto;
 import team.project.yumarket.network.dto.response.townMarket.TownMarketDetailResponseDto;
 import team.project.yumarket.network.dto.response.townMarket.TownMarketResponseDto;
