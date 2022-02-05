@@ -10,6 +10,7 @@ import team.project.yumarket.model.entity.home.HomeItemReview;
 
 import javax.transaction.Transactional;
 
+import java.util.List;
 import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
@@ -28,7 +29,7 @@ class HomeItemReviewRepositoryTest {
 
     // Mock data
     private Long userId = 2L;
-    private Long homeItemId = 5L;
+    private Long homeItemId = 4L;
     private double grade = 4.5;
 
     @Test
@@ -70,13 +71,15 @@ class HomeItemReviewRepositoryTest {
     @Test
     @DisplayName("read : ")
     @Transactional
-    void read() {
+    void read1() {
         // when
-        Optional<HomeItemReview> targetReview = homeItemReviewRepository.findById(1L);
+        Optional<HomeItemReview> targetReview = homeItemReviewRepository.findById(5L);
 
         // then
         Assertions.assertNotNull(targetReview);
         targetReview.ifPresent(homeItemReview -> {
+            System.out.println("목록 : " + homeItemReview.toString());
+
             Assertions.assertEquals(homeItemReview.getGrade(), grade);
             Assertions.assertEquals(homeItemReview.getUser().getId(), userId);
             Assertions.assertEquals(homeItemReview.getHomeItem().getId(), homeItemId);

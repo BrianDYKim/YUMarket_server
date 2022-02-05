@@ -1,4 +1,4 @@
-package team.project.yumarket.network.dto.request;
+package team.project.yumarket.network.dto.request.homeItem;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;

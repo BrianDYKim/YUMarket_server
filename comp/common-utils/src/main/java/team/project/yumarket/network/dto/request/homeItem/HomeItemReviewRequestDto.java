@@ -1,4 +1,4 @@
-package team.project.yumarket.network.dto.request;
+package team.project.yumarket.network.dto.request.homeItem;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -9,21 +9,20 @@ import lombok.NoArgsConstructor;
 /**
  * @author Doyeop Kim
  * @version 0.0
- * @since 2022/01/25
+ * @since 2022/02/04
  */
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MarketReviewRequestDto {
+public class HomeItemReviewRequestDto {
 
     private Double grade;
 
     private String content;
 
-    @JsonProperty("town_market_id")
-    private Long townMarketId;
+    @JsonProperty("home_item_id")
+    private Long homeItemId;
 
     @JsonProperty("user_id")
     private Long userId;

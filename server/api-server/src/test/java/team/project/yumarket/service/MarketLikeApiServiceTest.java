@@ -13,7 +13,7 @@ import team.project.yumarket.model.entity.User;
 import team.project.yumarket.model.entity.home.MarketLike;
 import team.project.yumarket.model.entity.home.TownMarket;
 import team.project.yumarket.model.enums.Role;
-import team.project.yumarket.network.dto.response.MarketLikeResponseDto;
+import team.project.yumarket.network.dto.response.townMarket.MarketLikeResponseDto;
 import team.project.yumarket.network.formats.CommunicationFormat;
 import team.project.yumarket.repository.MarketLikeRepository;
 import team.project.yumarket.repository.TownMarketRepository;
@@ -23,7 +23,6 @@ import java.util.Optional;
 
 import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ExtendWith(MockitoExtension.class)
 class MarketLikeApiServiceTest {

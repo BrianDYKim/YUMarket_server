@@ -51,4 +51,11 @@ public class HomeItemResponseDto {
 
     @JsonProperty("town_market_id")
     private Long townMarketId;
+
+    // 2022/02/04 추가 속성 (likeQuantity, reviewQuantity)
+    @JsonProperty("like_quantity")
+    private Integer likeQuantity;
+
+    @JsonProperty("review_quantity")
+    private Integer reviewQuantity;
 }

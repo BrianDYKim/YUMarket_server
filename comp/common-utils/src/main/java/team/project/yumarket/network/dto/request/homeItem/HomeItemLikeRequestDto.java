@@ -1,26 +1,24 @@
-package team.project.yumarket.network.dto.request;
+package team.project.yumarket.network.dto.request.homeItem;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
-import team.project.yumarket.model.entity.home.MarketLike;
 
 /**
  * @author Doyeop Kim
  * @version 0.0
- * @since 2022/01/22
+ * @since 2022/02/04
  */
-
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
-public class MarketLikeRequestDto {
+public class HomeItemLikeRequestDto {
 
-    @JsonProperty("town_market_id")
-    private Long townMarketId;
+    @JsonProperty("home_item_id")
+    private Long homeItemId;
 
     @JsonProperty("user_id")
     private Long userId;

@@ -3,8 +3,8 @@ package team.project.yumarket.controller;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import team.project.yumarket.network.dto.request.MarketLikeRequestDto;
-import team.project.yumarket.network.dto.response.MarketLikeResponseDto;
+import team.project.yumarket.network.dto.request.townMarket.MarketLikeRequestDto;
+import team.project.yumarket.network.dto.response.townMarket.MarketLikeResponseDto;
 import team.project.yumarket.service.MarketLikeApiService;
 import team.project.yumarket.util.url.Urls;
 

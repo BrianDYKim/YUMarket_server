@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import team.project.yumarket.ifs.ServiceCrudInterface;
 import team.project.yumarket.model.entity.home.MarketLike;
-import team.project.yumarket.network.dto.request.MarketLikeRequestDto;
-import team.project.yumarket.network.dto.response.MarketLikeResponseDto;
+import team.project.yumarket.network.dto.request.townMarket.MarketLikeRequestDto;
+import team.project.yumarket.network.dto.response.townMarket.MarketLikeResponseDto;
 import team.project.yumarket.network.exception.EntityNotFoundException;
 import team.project.yumarket.network.formats.CommunicationFormat;
 import team.project.yumarket.repository.MarketLikeRepository;
@@ -19,7 +19,6 @@ import team.project.yumarket.util.url.Urls;
 
 import java.util.List;
 import java.util.Optional;
-import java.util.stream.Collectors;
 
 /**
  * @author Doyeop Kim
@@ -38,9 +37,6 @@ public class MarketLikeApiService implements ServiceCrudInterface<MarketLike, Ma
 
     @Override
     public ResponseEntity<CommunicationFormat> create(CommunicationFormat<MarketLikeRequestDto> request) {
-
-        System.out.println(request);
-        System.out.println(request.getData());
 
         MarketLikeRequestDto requestBody = request.getData();
         MarketLike marketLike = requestToEntity(requestBody);

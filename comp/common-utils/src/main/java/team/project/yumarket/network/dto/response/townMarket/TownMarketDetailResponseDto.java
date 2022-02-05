@@ -6,7 +6,6 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
 import team.project.yumarket.network.dto.response.homeItem.HomeItemResponseDto;
-import team.project.yumarket.network.dto.response.MarketReviewResponseDto;
 
 import java.util.List;
 

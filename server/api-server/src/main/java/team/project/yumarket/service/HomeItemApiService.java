@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import team.project.yumarket.ifs.ServiceCrudInterface;
 import team.project.yumarket.model.entity.home.HomeItem;
-import team.project.yumarket.network.dto.request.HomeItemRequestDto;
+import team.project.yumarket.network.dto.request.homeItem.HomeItemRequestDto;
 import team.project.yumarket.network.dto.response.homeItem.HomeItemResponseDto;
 import team.project.yumarket.network.exception.EntityNotFoundException;
 import team.project.yumarket.network.formats.CommunicationFormat;
@@ -124,6 +124,8 @@ public class HomeItemApiService implements ServiceCrudInterface<HomeItem, HomeIt
                 .stockQuantity(homeItem.getStockQuantity())
                 .createdAt(homeItem.getCreatedAt())
                 .saleUpdatedAt(homeItem.getSaleUpdatedAt())
+                .likeQuantity(homeItem.getHomeItemLikeList().size())
+                .reviewQuantity(homeItem.getHomeItemReviewList().size())
                 .townMarketId(homeItem.getTownMarket().getId())
                 .build();
     }
