@@ -13,7 +13,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
-import team.project.yumarket.handler.BaseBadResponseHandler;
+import team.project.yumarket.handler.GlobalExceptionHandler;
 import team.project.yumarket.model.entity.User;
 import team.project.yumarket.model.entity.home.HomeItem;
 import team.project.yumarket.model.entity.home.HomeItemLike;
@@ -27,7 +27,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.doReturn;
 import static org.mockito.Mockito.mock;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -42,7 +41,7 @@ class HomeItemLikeApiControllerTest {
     private HomeItemLikeApiService homeItemLikeApiService;
 
     @Mock
-    private BaseBadResponseHandler baseBadResponseHandler;
+    private GlobalExceptionHandler baseBadResponseHandler;
 
     @Mock
     private HomeItemLikeRepository homeItemLikeRepository;

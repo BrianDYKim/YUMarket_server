@@ -9,6 +9,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.experimental.Accessors;
 import team.project.yumarket.model.entity.base.BaseEntity;
+import team.project.yumarket.model.enums.home.Category;
 import team.project.yumarket.model.enums.home.DetailCategory;
 
 import javax.persistence.*;
@@ -32,6 +33,9 @@ public class HomeItem extends BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @Enumerated(EnumType.STRING)
+    private Category category;
 
     @Enumerated(EnumType.STRING)
     @JsonProperty("detail_category")

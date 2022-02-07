@@ -62,8 +62,6 @@ public class HomeItemApiService implements ServiceCrudInterface<HomeItem, HomeIt
         );
     }
 
-    // TODO Home의 아이템에 대한 detail read 기능 구현
-
     // 기존의 아이템을 수정하는 메소드
     @Override
     public ResponseEntity<CommunicationFormat<HomeItemResponseDto>> update(CommunicationFormat<HomeItemRequestDto> request, Long id) throws HttpRequestMethodNotSupportedException {
@@ -74,6 +72,7 @@ public class HomeItemApiService implements ServiceCrudInterface<HomeItem, HomeIt
                             .setOriginalPrice(requestBody.getOriginalPrice() == null ? homeItem.getOriginalPrice() : requestBody.getOriginalPrice())
                             .setSalePrice(requestBody.getSalePrice() == null ? homeItem.getSalePrice() : requestBody.getSalePrice())
                             .setItemImageUrl(requestBody.getItemImageUrl() == null ? homeItem.getItemImageUrl() : requestBody.getItemImageUrl())
+                            .setCategory(requestBody.getCategory() == null? homeItem.getCategory() : requestBody.getCategory())
                             .setDetailCategory(requestBody.getDetailCategory() == null ? homeItem.getDetailCategory() : requestBody.getDetailCategory())
                             .setSaleUpdatedAt(requestBody.getSalePrice() == null ? homeItem.getSaleUpdatedAt() : LocalDateTime.now())
                             .setStockQuantity(requestBody.getStockQuantity() == null ? homeItem.getStockQuantity() : requestBody.getStockQuantity());
@@ -116,6 +115,7 @@ public class HomeItemApiService implements ServiceCrudInterface<HomeItem, HomeIt
     public HomeItemResponseDto responseData(HomeItem homeItem) {
         return HomeItemResponseDto.builder()
                 .id(homeItem.getId())
+                .category(homeItem.getCategory())
                 .detailCategory(homeItem.getDetailCategory())
                 .itemImageUrl(homeItem.getItemImageUrl())
                 .name(homeItem.getName())
@@ -139,6 +139,7 @@ public class HomeItemApiService implements ServiceCrudInterface<HomeItem, HomeIt
     @Override
     public HomeItem requestToEntity(HomeItemRequestDto request) {
         return HomeItem.builder()
+                .category(request.getCategory())
                 .detailCategory(request.getDetailCategory())
                 .itemImageUrl(request.getItemImageUrl())
                 .name(request.getName())

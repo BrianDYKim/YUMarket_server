@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import team.project.yumarket.model.enums.home.Category;
 import team.project.yumarket.model.enums.home.DetailCategory;
 
 import javax.persistence.EnumType;
@@ -21,6 +22,9 @@ import javax.persistence.Enumerated;
 @AllArgsConstructor
 @Builder
 public class HomeItemRequestDto {
+
+    @Enumerated(EnumType.STRING)
+    private Category category;
 
     @Enumerated(EnumType.STRING)
     @JsonProperty("detail_category")

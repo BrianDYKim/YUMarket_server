@@ -13,6 +13,7 @@ import team.project.yumarket.network.dto.response.homeItem.HomeItemResponseDto;
 import team.project.yumarket.network.dto.response.townMarket.MarketReviewResponseDto;
 import team.project.yumarket.network.dto.response.townMarket.TownMarketDetailResponseDto;
 import team.project.yumarket.network.dto.response.townMarket.TownMarketResponseDto;
+import team.project.yumarket.network.dto.response.townMarket.TownMarketSimpleResponseDto;
 import team.project.yumarket.network.exception.EntityNotFoundException;
 import team.project.yumarket.network.formats.CommunicationFormat;
 import team.project.yumarket.network.formats.Pagination;
@@ -180,6 +181,16 @@ public class TownMarketApiService implements ServiceCrudInterface<TownMarket, To
                 .reviewQuantity(market.getMarketReviewList().size())
                 .homeItemResponseDtoList(homeItemResponseDtoList)
                 .marketReviewResponseDtoList(marketReviewResponseDtoList)
+                .build();
+    }
+
+    // 22.02.07 simple dto에 대한 responseData method
+    public TownMarketSimpleResponseDto responseSimpleData(TownMarket market) {
+        return TownMarketSimpleResponseDto.builder()
+                .id(market.getId())
+                .name(market.getName())
+                .latitude(market.getLatitude())
+                .longitude(market.getLongitude())
                 .build();
     }
 

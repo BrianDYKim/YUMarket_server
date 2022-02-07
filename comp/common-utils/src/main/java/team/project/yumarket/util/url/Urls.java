@@ -21,4 +21,6 @@ public interface Urls {
     String HOME_ITEM_LIKE = HOME_ITEM + "-like"; // /api/item-like
 
     String HOME_ITEM_REVIEW = HOME_ITEM + "-review"; // /api/item-review
+
+    String HOME_ITEM_DETAIL = HOME_ITEM + "-detail"; // /api/item-detail
 }

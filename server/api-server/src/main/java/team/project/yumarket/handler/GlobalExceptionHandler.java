@@ -2,7 +2,6 @@ package team.project.yumarket.handler;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -20,7 +19,7 @@ import javax.validation.ConstraintViolationException;
  * @since 2022/01/23
  */
 @RestControllerAdvice
-public class BaseBadResponseHandler {
+public class GlobalExceptionHandler {
 
     // requestBody validation에서 걸리는 exception을 모두 처리하는 메소드
     @ExceptionHandler(MethodArgumentNotValidException.class)
