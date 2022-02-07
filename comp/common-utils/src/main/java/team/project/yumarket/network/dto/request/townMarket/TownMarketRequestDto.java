@@ -1,4 +1,4 @@
-package team.project.yumarket.network.dto.request;
+package team.project.yumarket.network.dto.request.townMarket;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
@@ -8,6 +8,7 @@ import lombok.NoArgsConstructor;
 import team.project.yumarket.model.entity.home.TownMarket;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 
 /**
  * @author Doyeop Kim
@@ -24,13 +25,13 @@ public class TownMarketRequestDto {
     private String name;
 
     @JsonProperty("is_open")
-    private boolean isOpen;
+    private Boolean isOpen;
 
     @JsonProperty("open_time")
-    private LocalDateTime openTime;
+    private LocalTime openTime;
 
     @JsonProperty("close_time")
-    private LocalDateTime closeTime;
+    private LocalTime closeTime;
 
     private String address;
 
@@ -40,18 +41,4 @@ public class TownMarketRequestDto {
 
     @JsonProperty("market_image_url")
     private String marketImageUrl;
-
-    // request -> entity
-    public TownMarket toEntity() {
-        return TownMarket.builder()
-                .name(this.name)
-                .isOpen(this.isOpen)
-                .openTime(this.openTime)
-                .closeTime(this.closeTime)
-                .address(this.address)
-                .longitude(this.longitude)
-                .latitude(this.latitude)
-                .marketImageUrl(this.marketImageUrl)
-                .build();
-    }
 }

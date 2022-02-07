@@ -13,4 +13,6 @@ public interface ServiceCrudInterface<T, Req, Res> extends CrudInterface<Req, Re
     public CommunicationFormat<Res> response(String url, T data);
 
     public Res responseData(T data);
+
+    public T requestToEntity(Req request);
 }

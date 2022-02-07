@@ -20,6 +20,7 @@ public enum DetailCategory {
     DESSERT("디저트"),
     FAST_FOOD("패스트푸드"),
     CHINA_FOOD("중국집"),
+    KOREAN_FOOD("한식"),
     PIZZA("피자"),
     SNACK_BREAD("과자/빵"),
     BEVERAGE_COFFEE_MILK_PRODUCT("음료/커피/유제품"),

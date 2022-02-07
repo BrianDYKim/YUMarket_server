@@ -1,10 +1,11 @@
-package team.project.yumarket.network.dto.response;
+package team.project.yumarket.network.dto.response.homeItem;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
+import team.project.yumarket.model.enums.home.Category;
 import team.project.yumarket.model.enums.home.DetailCategory;
 
 import javax.persistence.EnumType;
@@ -20,10 +21,13 @@ import java.time.LocalDateTime;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class HomeItemResponseDto {
 
     private Long id;
+
+    @Enumerated(EnumType.STRING)
+    private Category category;
 
     @Enumerated(EnumType.STRING)
     @JsonProperty("detail_category")
@@ -35,13 +39,13 @@ public class HomeItemResponseDto {
     private String name;
 
     @JsonProperty("original_price")
-    private int originalPrice;
+    private Integer originalPrice;
 
     @JsonProperty("sale_price")
-    private int salePrice;
+    private Integer salePrice;
 
     @JsonProperty("stock_quantity")
-    private int stockQuantity;
+    private Integer stockQuantity;
 
     @JsonProperty("created_at")
     private LocalDateTime createdAt;
@@ -51,4 +55,11 @@ public class HomeItemResponseDto {
 
     @JsonProperty("town_market_id")
     private Long townMarketId;
+
+    // 2022/02/04 추가 속성 (likeQuantity, reviewQuantity)
+    @JsonProperty("like_quantity")
+    private Integer likeQuantity;
+
+    @JsonProperty("review_quantity")
+    private Integer reviewQuantity;
 }

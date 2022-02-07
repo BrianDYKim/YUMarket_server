@@ -1,12 +1,14 @@
-package team.project.yumarket.network.dto.response;
+package team.project.yumarket.network.dto.response.townMarket;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.List;
 
 /**
@@ -18,7 +20,7 @@ import java.util.List;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
+@SuperBuilder
 public class TownMarketResponseDto {
 
     private Long id;
@@ -29,10 +31,10 @@ public class TownMarketResponseDto {
     private boolean isOpen;
 
     @JsonProperty("open_time")
-    private LocalDateTime openTime;
+    private LocalTime openTime;
 
     @JsonProperty("close_time")
-    private LocalDateTime closeTime;
+    private LocalTime closeTime;
 
     private String address;
 
@@ -43,6 +45,12 @@ public class TownMarketResponseDto {
     @JsonProperty("market_image_url")
     private String marketImageUrl;
 
-    @JsonProperty("items")
-    private List<HomeItemResponseDto> homeItemResponseDtoList;
+    @JsonProperty("item_quantity")
+    private int itemQuantity;
+
+    @JsonProperty("like_quantity")
+    private int likeQuantity;
+
+    @JsonProperty("review_quantity")
+    private int reviewQuantity;
 }

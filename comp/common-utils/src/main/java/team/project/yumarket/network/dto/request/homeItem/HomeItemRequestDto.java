@@ -1,10 +1,11 @@
-package team.project.yumarket.network.dto.request;
+package team.project.yumarket.network.dto.request.homeItem;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import team.project.yumarket.model.enums.home.Category;
 import team.project.yumarket.model.enums.home.DetailCategory;
 
 import javax.persistence.EnumType;
@@ -23,6 +24,9 @@ import javax.persistence.Enumerated;
 public class HomeItemRequestDto {
 
     @Enumerated(EnumType.STRING)
+    private Category category;
+
+    @Enumerated(EnumType.STRING)
     @JsonProperty("detail_category")
     private DetailCategory detailCategory;
 
@@ -32,13 +36,13 @@ public class HomeItemRequestDto {
     private String name;
 
     @JsonProperty("original_price")
-    private int originalPrice;
+    private Integer originalPrice;
 
     @JsonProperty("sale_price")
-    private int salePrice;
+    private Integer salePrice;
 
     @JsonProperty("stock_quantity")
-    private int stockQuantity;
+    private Integer stockQuantity;
 
     @JsonProperty("town_market_id")
     private Long townMarketId;

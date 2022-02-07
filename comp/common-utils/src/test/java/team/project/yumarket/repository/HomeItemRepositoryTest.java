@@ -53,13 +53,24 @@ class HomeItemRepositoryTest {
 
     @Test
     @DisplayName("read : ")
+    @Transactional
     void read() {
-        Optional<HomeItem> targetItem = homeItemRepository.findById(1L);
+        Optional<HomeItem> targetItem = homeItemRepository.findById(4L);
 
         // then
         Assertions.assertNotNull(targetItem);
         targetItem.ifPresent(item -> {
-            Assertions.assertEquals("핫크리스피버거", item.getName());
+            Assertions.assertEquals("피자돈가스", item.getName());
+
+            item.getHomeItemLikeList().forEach(homeItemLike -> {
+                Assertions.assertEquals(homeItemLike.getHomeItem().getId(), 4L);
+                Assertions.assertEquals(homeItemLike.getUser().getId(), 2L);
+            });
+
+            item.getHomeItemReviewList().forEach(homeItemReview -> {
+                Assertions.assertEquals(homeItemReview.getHomeItem().getId(), 5L);
+                Assertions.assertEquals(homeItemReview.getUser().getId(), 2L);
+            });
         });
     }
 
