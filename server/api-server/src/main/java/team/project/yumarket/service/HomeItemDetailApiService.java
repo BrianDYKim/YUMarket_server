@@ -53,7 +53,7 @@ public class HomeItemDetailApiService {
                 .build();
 
         return ResponseEntity.status(HttpStatus.OK)
-                .body(CommunicationFormat.OK(REQUEST_URL + "/list?category=" + items.getContent().get(0).getCategory() + "&page=" + pagination.getCurrentPage(),
+                .body(CommunicationFormat.OK(REQUEST_URL + "/list?category=xx" + "&page=" + pagination.getCurrentPage(),
                         itemDetailResponseDtoList, pagination)
                 );
     }
