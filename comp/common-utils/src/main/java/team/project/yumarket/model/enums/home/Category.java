@@ -12,7 +12,7 @@ import lombok.RequiredArgsConstructor;
 @Getter
 @RequiredArgsConstructor
 public enum Category {
-    FOOD("식/음료"),
+    FOOD_BEVERAGE("식/음료"),
     MART("편의점/마트"),
     SERVICE("서비스업종"),
     FASHION("패션의류"),
