@@ -1,0 +1,16 @@
+
+dependencies {
+
+    // common module dependencies
+    implementation project(path: ":comp-common-utils", configuration: 'default')
+    implementation project(path: ":comp-domain", configuration: 'default')
+
+    // independent module dependencies
+    implementation project(path: ':independent-annotation', configuration: 'default')
+
+    // data jpa
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+
+    // Validation
+    implementation 'org.springframework.boot:spring-boot-starter-validation:2.6.2'
+}

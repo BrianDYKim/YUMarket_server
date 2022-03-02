@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import team.project.yumarket.network.exception.EntityNotFoundException;
 import team.project.yumarket.network.formats.ErrorResponseFormat;
-import team.project.yumarket.util.codes.ErrorCode;
+import team.project.yumarket.network.errorCode.ErrorCode;
 
 import javax.validation.ConstraintViolationException;
 

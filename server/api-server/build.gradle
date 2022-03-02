@@ -2,7 +2,14 @@ dependencies {
     testImplementation 'org.junit.jupiter:junit-jupiter-api:5.7.2'
     testRuntimeOnly 'org.junit.jupiter:junit-jupiter-engine:5.7.2'
 
+    // common module dependencies
+    implementation project(path: ":comp-domain", configuration: 'default')
+    implementation project(path: ":comp-system-core", configuration: 'default')
+    implementation project(path: ":comp-system-base", configuration: 'default')
     implementation project(path: ":comp-common-utils", configuration: 'default')
+
+    // independent module dependencies
+    implementation project(path: ":independent-annotation", configuration: 'default')
 
     // https://mvnrepository.com/artifact/com.google.code.gson/gson
     implementation 'com.google.code.gson:gson:2.8.5'

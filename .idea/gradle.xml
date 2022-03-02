@@ -12,6 +12,10 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/comp/common-utils" />
+            <option value="$PROJECT_DIR$/comp/domain" />
+            <option value="$PROJECT_DIR$/comp/system-base" />
+            <option value="$PROJECT_DIR$/comp/system-core" />
+            <option value="$PROJECT_DIR$/independent/annotation" />
             <option value="$PROJECT_DIR$/server/api-server" />
           </set>
         </option>

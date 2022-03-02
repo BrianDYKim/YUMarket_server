@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import team.project.yumarket.ifs.ServiceCrudInterface;
-import team.project.yumarket.model.entity.home.HomeItem;
 import team.project.yumarket.model.entity.home.HomeItemReview;
 import team.project.yumarket.network.dto.request.homeItem.HomeItemReviewRequestDto;
 import team.project.yumarket.network.dto.response.homeItem.HomeItemReviewResponseDto;

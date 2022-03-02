@@ -7,17 +7,13 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import team.project.yumarket.model.entity.home.HomeItem;
 import team.project.yumarket.network.dto.response.homeItem.HomeItemDetailResponseDto;
-import team.project.yumarket.network.dto.response.homeItem.HomeItemResponseDto;
 import team.project.yumarket.network.dto.response.townMarket.TownMarketSimpleResponseDto;
-import team.project.yumarket.network.exception.EntityNotFoundException;
 import team.project.yumarket.network.formats.CommunicationFormat;
 import team.project.yumarket.network.formats.Pagination;
 import team.project.yumarket.repository.HomeItemRepository;
 import team.project.yumarket.util.url.Urls;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.IntStream;
 
 /**
  * HomeItem에 대한 Detail read 기능만을 지원하는 service logic code

@@ -12,13 +12,11 @@ import team.project.yumarket.network.dto.response.homeItem.HomeItemDetailRespons
 import team.project.yumarket.network.dto.response.townMarket.TownMarketSimpleResponseDto;
 import team.project.yumarket.network.exception.EntityNotFoundException;
 import team.project.yumarket.network.formats.CommunicationFormat;
-import team.project.yumarket.network.formats.Pagination;
 import team.project.yumarket.service.HomeItemDetailApiService;
 import team.project.yumarket.service.TownMarketApiService;
 import team.project.yumarket.util.url.Urls;
 
 import java.util.List;
-import java.util.Set;
 import java.util.stream.Collectors;
 
 /**

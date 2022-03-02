@@ -1,0 +1,9 @@
+
+dependencies {
+
+    // common module dependencies
+    implementation project(path: ":comp-common-utils", configuration: 'default')
+
+    // independent module dependencies
+    implementation project(path: ":independent-annotation", configuration: 'default')
+}
